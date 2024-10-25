@@ -1,24 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const User_list = () => {
-  const [users, setUsers] = useState([
-    { 
-      id: 1, 
-      name: 'John Doe', 
-      rank: 'Admin' 
-    },
-    { 
-      id: 2, 
-      name: 'Jane Smith', 
-      rank: 'User' 
-    },
-    { 
-      id: 3, 
-      name: 'Alice Johnson', 
-      rank: 'Moderator' 
-    }
-  ]);
+const User_list = ({ initialUsers }) => {
+  const [users, setUsers] = useState(initialUsers);
+
+  useEffect(() => {
+    setUsers(initialUsers);
+  }, [initialUsers]);
 
   const deleteUser = (id) => {
     const userToDelete = users.find(user => user.id === id);

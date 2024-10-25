@@ -1,0 +1,19 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "rank": "Admin"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "rank": "User"
+      },
+      {
+        "id": 3,
+        "name": "Alice Johnson",
+        "rank": "Moderator"
+      }
+    ]
+  }

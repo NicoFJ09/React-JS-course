@@ -1,0 +1,13 @@
+.text-input-container {
+    position: relative; /* Posición relativa */
+    margin-top: 5vh; /* Margen superior de 10vh */
+    width: 40vw; /* 50% del ancho de la ventana */
+  }
+  
+  .text-input {
+    width: 100%; /* Ancho completo del contenedor */
+    padding: 10px; /* Relleno interno */
+    border-radius: 15px; /* Bordes redondeados */
+    border: 2px solid black; /* Borde con color */
+    box-sizing: border-box; /* Incluir el borde y el relleno en el tamaño total */
+  }

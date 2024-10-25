@@ -17,6 +17,11 @@
 ### <font color="#EB5B00">8. Props & Prop Drilling</font>
 ### <font color="#EB5B00">9. Controlled Component Inputs</font>
 ### <font color="#EB5B00">10. Project</font>
+### <font color="#EB5B00">11. Use Effect hook</font>
+### <font color="#EB5B00">12. JSON server</font>
+### <font color="#EB5B00">13. Fetch API Data</font>
+### <font color="#EB5B00">14. CRUD Operations</font>
+### <font color="#EB5B00">15. Fetch Data Challenge</font>
 ---
 
 # <font color="E4003A"> Information </font>
@@ -116,6 +121,7 @@ const User_list = () => {
 
 export default User_list;
 ```
+---
 
 ### <font color="#EB5B00">8. Props & Prop Drilling</font>
 - I can pass properties to a component using props as an input to the const Header for example:
@@ -130,7 +136,7 @@ function App() {
 - if I were to do, {props.title} in the original header definition, it would return what I defined it as in app, it seems to be a good organizer but dont see much use directly from app, basically it is a tag that I can take and input into components, I could just call it as title, **props seems unnecesary then**.
 - It could also help me pass variables to the specific component that maybe I retrieve from a function established in the app file, if this were the case then I could send lists to specific components, etc
 -I could pass all functions to App and pass them to that file too, **COULD BE USEFUL TO ORGANIZE REPEATED FUNCTIONS** do not define them in app but passing them seems fine, like a sort of chain, but probably just defining in respective files is fine. This means I could have a file with only **REUSABLE COMPONENTS**, then in app I call that file and pass all of them into the respective components defined there **PRETTY COOL**
-
+---
 
 
 ### <font color="#EB5B00">9. Controlled Component Inputs</font>
@@ -161,32 +167,125 @@ const AddItem = ({ newItem, setNewItem, handleSubmit }) => {
 ```
 - The htmlfor connects the label to the input so that when I click the title it already readys the prompt to then write, autofocus makes the input space the focus as the page loads, the required makes you have to fill the form. **It is a controlled component input because whatever goes within the form submits the value and sets a new item this is called from another file, as you can see the methods are established at the beginning of the const**
 - For context: The onChange function is called each time the user types in the input field. This function updates the newItem state with the current value of the input field (e.target.value).
-
+---
 
 ### <font color="#EB5B00">10. Project</font>
 - I need an input box that as I type a color it turns the box to said color, it is the builtin javascript colors, using what I know, I will create a new file for this called project, it I will manage everything there
+- I created a text input and color box component which I imported to app I used an on input change that returns a value to main since it is prop I established and said return is sent to color box through a prop, the color prop just updates with it normally, I created a toggle button to be able to see the text in darkness too.
+---
+### <font color="#EB5B00">11. Use Effect hook</font>
+- This is a constant action, as use state just waits and shifts different conditions or states. Use effect does things for every render, whether it is a key type or scrolling, so it can help me with some animations or specific processes.
 
-## Texto
+**Normally this would not be ideal**, if we add a dependency the change happens during a load time so if I went:
+```javascript
+useEffect(() => {
+  console.log("load time")
+}, [])
+}
+```
+the [] adds the dependency for reloading, that defines the useeffect update to save on resources so I guess I could make scroll animations purely depend on scrolling to save on resources, if the scroll changes that is what matters
+-use effect is is not synced with the order of operations so I would have to directly establish order I guess
+-seems to work when the page gets reset to fetch specific information or for first timers
 
-Este es un párrafo de texto. Puedes **resaltar en negrita** o *en cursiva*.
+---
+### <font color="#EB5B00">12. JSON server</font>
+- Usamos npx install json-server (no lo queremos como dependencia, solo para usarlo)
+-we save intro a data folder and db.jsonfile
+**npx json-server -p 3500 -w data/db.json**
+Check docu to see how to manipulate the data
 
-También puedes ~~tachar texto~~.
+---
 
-## Glosario Archivos
+### <font color="#EB5B00">13. Fetch API Data</font>
+```javascript
+  const API_URL = 'http://localhost:3500/users';
+  
+  const [users, setUsers] = useState([]);
+  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
 
-## Enlaces
+    fetchUsers(); // Fetch initial data
 
-[Documentación React](https://react.dev)
-[Documentación HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[Documentación Styled components](https://styled-components.com/)
+    const intervalId = setInterval(fetchUsers, 5000); // Fetch data every 5 seconds
 
-## Anexos
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []);
+```
 
-![Texto Alternativo](https://via.placeholder.com/150)
+I retrieve the data and send it into userlist, it updates automatically checking at specific intervals, web sockets would be the most efficient approach.
 
-## Citas
+### <font color="#EB5B00">14. CRUD Operations</font>
 
-> Esta es una cita.
+```javascript
+const apiRequest = async (url = '', optionsObj = null, errMsg = null ) => {
+    try {
+        const response = await fetch(url, optionsObj);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        errMsg = error.message;
+        return null;
+    } finally {
+        return errMsg;
+    }
+}
 
-### Código en Línea
-Aquí hay un ejemplo de `código en línea`.
+export default apiRequest;
+```
+- This manages the fetcing separately so that I can handle error cases safely
+```javascript
+const postOptions = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(myNewItem)
+};
+
+const result = await apiRequest(API_URL, postOptions);
+if (result) setFetchError(result);
+```
+- Then I can choose to do specific changes, wait for the apiRequest and it will only work without errors unless the output is null, the apiResquest is made well.
+
+- apiRequest is also used to handle updates to the db using the position of the specific checked item, sorted by an id and switching a bool var for example, it accesses the url and ends up changing the data in the json, through the apirequest and a patch method
+
+**There are all the JSON posibilities:**
+
+GET    /posts
+
+GET    /posts/:id
+
+POST   /posts
+
+PUT    /posts/:id
+
+PATCH  /posts/:id
+
+DELETE /posts/:id
+
+- The guy in the tutorial creates all methods directly in app to check, add and delete items using these JSON methods, reverse engineer later
+
+### <font color="#EB5B00">15. Fetch Data Challenge</font>
+Create 3 different pages with data of (users, posts and comments based on the JSON placeholder)
+
+
+## <font color="#B60071"> Links </font>
+
+[Documentation React](https://react.dev)
+
+[Documentation HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+
+[Documentation Styled components](https://styled-components.com/)
+
+[Documentation JSON Server](https://www.npmjs.com/package/json-server)
+
+[JSON placeholder (fake data for testing)](https://jsonplaceholder.typicode.com/)

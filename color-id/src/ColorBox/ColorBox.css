@@ -1,0 +1,37 @@
+/* ColorBox.css */
+
+.color-box {
+    width: 50vw; /* 50% del ancho de la ventana */
+    height: 50vh; /* Mantiene una relación de aspecto cuadrada */
+    background-color: white; /* Color de fondo */
+    border-radius: 15px; /* Bordes redondeados */
+    border: 2px solid black; /* Borde con color */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    color: black; /* Color del texto */
+    font-weight: bold; /* Peso del texto */
+    overflow: hidden; /* Ocultar el contenido que se desborda */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+}
+
+.toggle-button {
+    margin-top: 10px; /* Margen superior */
+    padding: 10px 20px; /* Relleno interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #FEF9F2; /* Color de fondo */
+    color: black; /* Color del texto */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+}
+
+.toggle-button:hover {
+    background-color: #FFE3E3; /* Color de fondo al pasar el ratón */
+}
