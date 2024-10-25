@@ -22,6 +22,10 @@
 ### <font color="#EB5B00">13. Fetch API Data</font>
 ### <font color="#EB5B00">14. CRUD Operations</font>
 ### <font color="#EB5B00">15. Fetch Data Challenge</font>
+### <font color="#EB5B00">16. React Router</font>
+### <font color="#EB5B00">17. Router Hooks and links</font>
+### <font color="#EB5B00">18. FlexBox Components</font>
+### <font color="#EB5B00">19. Axios API Requests</font>
 ---
 
 # <font color="E4003A"> Information </font>
@@ -65,6 +69,7 @@ These are reusable components that have many functionalities within my code, the
 ### <font color="#EB5B00">6. Use State Hook</font>
 
 - Can be used for counters, forms, visibility states, loading states, etc. Basically a temp var that is global for my js file setup. You set an initial value and can later manipulate at will.
+- e is a standarized way of typing event, could name anything
 
 ---
 
@@ -275,7 +280,30 @@ DELETE /posts/:id
 - The guy in the tutorial creates all methods directly in app to check, add and delete items using these JSON methods, reverse engineer later
 
 ### <font color="#EB5B00">15. Fetch Data Challenge</font>
-Create 3 different pages with data of (users, posts and comments based on the JSON placeholder)
+Create 3 different pages with data of (users, posts and comments based on the JSON placeholder). I extract the data from Json Placeholder and use it for my webpage. Solution in challenge 2
+
+### <font color="#EB5B00">16. React Router</font>
+-Used to manage routes between screens, you adapt the index.js and manage routes between components with ease.
+
+-Use routes before writing route, I add the directions in the syntax established in app.js.
+**react-router-test has everything**
+
+### <font color="#EB5B00">17. Router Hooks and links</font>
+- Here I am told how to manage paths in a navbar, adding the Link functionality from reactrouterdom, or directly added to specific texts in a screen like titles, in this case the blog posts are hardcoded into app, in another case by retrieving from server it should work right where it sends through props all the info until it reaches what it must, separation of components is prioritized, pretty cool, like a priority pyramid.
+
+- **something to consider:** `whenever coding just creating the structure and calling other components makes it easier` it is task separating, the same with classNames if I just define them then creating them is very useful, lastly divs are fine but there are builtin html components that work great
+
+- I defined all screens for a blog app, it mas mostly shifting between use states and use effects for specifically deleting or adding posts fairly easy, `reread when need to use again`.
+
+### <font color="#EB5B00">18. FlexBox Components</font>
+- Basically helps to manage UI of the blog to make the flexbox manage itself correctly
+- **Everything is attached to the #root div in index.js** so it could easily cause interference.
+- Centers the root as a whole and uses flex-grow to cover the whole page
+
+### <font color="#EB5B00">19. Axios API Requests</font>
+- This one makes requesting data easier than when using the fetch API.
+- You create the same dbjson file as last time and an api folder too with the direction in this case localhost 3500, we run the code as before `npx json-server -p 3500 -w Data/db.json`
+- Pretty cool how everything was managed, update through edits was the most complicated tbh, recheck this code whenever I want to see how to handle data with server, overall simple, syntax important.
 
 
 ## <font color="#B60071"> Links </font>
@@ -288,4 +316,4 @@ Create 3 different pages with data of (users, posts and comments based on the JS
 
 [Documentation JSON Server](https://www.npmjs.com/package/json-server)
 
-[JSON placeholder (fake data for testing)](https://jsonplaceholder.typicode.com/)
+[Documentation Axios for json db](https://www.npmjs.com/package/axios)
