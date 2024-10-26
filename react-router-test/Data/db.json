@@ -1,16 +1,22 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "Hello world",
-      "datetime": "October 25, 2024 4:46:36 PM",
-      "body": "Im bored fuuuuuck\n"
+      "id": 1,
+      "title": "el pepe",
+      "datetime": "October 25, 2024 6:04:35 PM",
+      "body": "xd"
     },
     {
-      "id": "11",
-      "title": "holo",
-      "datetime": "October 25, 2024 4:47:28 PM",
-      "body": "mancos todos xd"
+      "id": 2,
+      "title": "el pepe",
+      "datetime": "October 25, 2024 6:04:40 PM",
+      "body": "xd"
+    },
+    {
+      "id": 3,
+      "title": "xd",
+      "datetime": "October 25, 2024 6:05:29 PM",
+      "body": "a"
     }
   ]
 }

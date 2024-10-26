@@ -1,9 +1,3 @@
-# Color pallete: 
-- <font color="#FFB200"> #FFB200 </font>
-- <font color="#EB5B00"> #EB5B00 </font>
-- <font color="#E4003A"> #E4003A </font>
--  <font color="#B60071"> #B60071 </font>
-
 # <font color="E4003A"> React JS Full Course </font>
 
 ##  <font color="#FFB200"> Content </font>
@@ -26,6 +20,10 @@
 ### <font color="#EB5B00">17. Router Hooks and links</font>
 ### <font color="#EB5B00">18. FlexBox Components</font>
 ### <font color="#EB5B00">19. Axios API Requests</font>
+### <font color="#EB5B00">20. Custom Hooks</font>
+### <font color="#EB5B00">21. Context API & useContext Hook</font>
+### <font color="#EB5B00">22. Easy Peasy Redux</font>
+### <font color="#EB5B00">23. Build & Deploy your React Apps</font>
 ---
 
 # <font color="E4003A"> Information </font>
@@ -228,6 +226,8 @@ Check docu to see how to manipulate the data
 
 I retrieve the data and send it into userlist, it updates automatically checking at specific intervals, web sockets would be the most efficient approach.
 
+---
+
 ### <font color="#EB5B00">14. CRUD Operations</font>
 
 ```javascript
@@ -278,9 +278,12 @@ PATCH  /posts/:id
 DELETE /posts/:id
 
 - The guy in the tutorial creates all methods directly in app to check, add and delete items using these JSON methods, reverse engineer later
+---
 
 ### <font color="#EB5B00">15. Fetch Data Challenge</font>
 Create 3 different pages with data of (users, posts and comments based on the JSON placeholder). I extract the data from Json Placeholder and use it for my webpage. Solution in challenge 2
+
+---
 
 ### <font color="#EB5B00">16. React Router</font>
 -Used to manage routes between screens, you adapt the index.js and manage routes between components with ease.
@@ -288,6 +291,7 @@ Create 3 different pages with data of (users, posts and comments based on the JS
 -Use routes before writing route, I add the directions in the syntax established in app.js.
 **react-router-test has everything**
 
+---
 ### <font color="#EB5B00">17. Router Hooks and links</font>
 - Here I am told how to manage paths in a navbar, adding the Link functionality from reactrouterdom, or directly added to specific texts in a screen like titles, in this case the blog posts are hardcoded into app, in another case by retrieving from server it should work right where it sends through props all the info until it reaches what it must, separation of components is prioritized, pretty cool, like a priority pyramid.
 
@@ -299,14 +303,140 @@ Create 3 different pages with data of (users, posts and comments based on the JS
 - Basically helps to manage UI of the blog to make the flexbox manage itself correctly
 - **Everything is attached to the #root div in index.js** so it could easily cause interference.
 - Centers the root as a whole and uses flex-grow to cover the whole page
+---
 
 ### <font color="#EB5B00">19. Axios API Requests</font>
 - This one makes requesting data easier than when using the fetch API.
 - You create the same dbjson file as last time and an api folder too with the direction in this case localhost 3500, we run the code as before `npx json-server -p 3500 -w Data/db.json`
 - Pretty cool how everything was managed, update through edits was the most complicated tbh, recheck this code whenever I want to see how to handle data with server, overall simple, syntax important.
+---
+
+### <font color="#EB5B00">20. Custom Hooks</font>
+- Apparently besides useEffect and useState there are more, probably functions that recieve specific parameters, lets see how these work: 
+Rules in links but important ones:
+- ❌ Don’t call Hooks inside loops, conditions, nested functions, or try/catch/finally blocks.
+- ✅ Call them at the top level in the body of a function component.
+- ✅ Call them at the top level in the body of a custom Hook.
+`There is a collection of react hooks, basically for whatever I could need, all use USE`
+- For this example we create use Window size
+- Custom hooks are still created with useState and useEffect, the most elemental ones
+`SEE ALL CHANGES IN HOOKS FILE react-router-test `
+- The window size hook could potentially be of use when managing responsiveness for specific situations and not abusing @media, who knows.
+
+- We could also create a use Axios fetch hook, I'll save and use some other time
+---
+
+### <font color="#EB5B00">21. Context API & useContext Hook</font>
+- App.js is full of code now, not a great process, we will refactor and use the usecontext hook to be able to separate all information, we can have different context files but for this one only 1 because its small, `this make app way cleaner`
+
+-I wont do it with everything but I know how
+`Here is the before`
+``` javascript
+import React from 'react'
+import {FaLaptop, FaTabletAlt, FaMobileAlt} from 'react-icons/fa'
+const Header = ({title, width}) => {
+  return (
+    <header className= "Header">
+        <h1>{title}</h1>
+        {width > 768 ? (
+            <FaLaptop/>
+        ): width > 576 ? (
+            <FaTabletAlt/>
+        ): (
+            <FaMobileAlt/>
+        )}
+    </header>
+  )
+}
+
+export default Header
+```
+`And here is the after`
+``` javascript
+import React from 'react'
+import {FaLaptop, FaTabletAlt, FaMobileAlt} from 'react-icons/fa'
+import {useContext} from 'react'
+import DataContext from '../Context/DataContext'
+
+
+const Header = ({title}) => {
+const {width} = useContext(DataContext);
+  return (
+    <header className= "Header">
+        <h1>{title}</h1>
+        {width > 768 ? (
+            <FaLaptop/>
+        ): width > 576 ? (
+            <FaTabletAlt/>
+        ): (
+            <FaMobileAlt/>
+        )}
+    </header>
+  )
+}
+
+export default Header
+```
+
+- In Datacontext you see how each component is added there so I could clean up my app folder and make it more organized
+- Not all files require that, some can just recieve the data through props if only those require that info buy if it goes to several it can help to avoid too much noise in the code. Example: Title
+- At the end the code looks like this, did not do the changes but I know how to:
+``` javascript
+//APP.JS
+import Header from './Header';
+import Nav from './Nav';
+import Footer from './Footer';
+import Home from './Home';
+import NewPost from './NewPost';
+import PostPage from './PostPage';
+import EditPost from './EditPost';
+import About from './About';
+import Missing from './Missing';
+import { Route, Switch } from 'react-router-dom';
+import { DataProvider } from './context/DataContext';
+
+function App() {
+
+  return (
+    <div className="App">
+      <Header title="React JS Blog" />
+      <DataProvider>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/post" component={NewPost} />
+          <Route path="/edit/:id" component={EditPost} />
+          <Route path="/post/:id" component={PostPage} />
+          <Route path="/about" component={About} />
+          <Route path="*" component={Missing} />
+        </Switch>
+      </DataProvider>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
+```
+---
+### <font color="#EB5B00">22. Easy Peasy Redux</font>
+- It allows to take everything done in the context file and recafactor to make everything eving simpler, redux generally is useful Easy peasy makes the process more managable for smaller projects
+- This will be purely theoretical: 
+all states and actions will be saved there
+- **State and Action Management Made Simple**:
+It helps you manage all your app's data (state) in one central place
+Like having one master control center for all your app's information
+- It seems to be changing syntax but mantaining logic, kinda complicated but overall useful
+- Not necessary for my purposes but might need later, I saved docs in links and you can check the final repo commit "chapter 22" to see how these last parts interact
+`Probably easier porting after full Context API`
+---
+
+### <font color="#EB5B00">23. Build & Deploy your React Apps</font>
+- 
 
 
 ## <font color="#B60071"> Links </font>
+
 
 [Documentation React](https://react.dev)
 
@@ -317,3 +447,11 @@ Create 3 different pages with data of (users, posts and comments based on the JS
 [Documentation JSON Server](https://www.npmjs.com/package/json-server)
 
 [Documentation Axios for json db](https://www.npmjs.com/package/axios)
+
+[Rules of hooks (for creating more)](https://react.dev/reference/rules/rules-of-hooks)
+
+[Collection of react hooks](https://nikgraf.github.io/react-hooks/)
+
+[Easy Peasy Redux](https://easy-peasy.dev/docs/introduction/)
+
+[FULL 9hr TUTORIAL REPO](https://github.com/gitdagray/react_resources?tab=readme-ov-file)
