@@ -432,7 +432,7 @@ Like having one master control center for all your app's information
 ---
 
 ### <font color="#EB5B00">23. Build & Deploy your React Apps</font>
-- 
+- Using netlify you can deploy the page using git, run build and publish the build directory, the site deploy waits a while, and you will have an address and link to fully launch, netlify is for temporary releases but its sharable, prety cool, 
 
 
 ## <font color="#B60071"> Links </font>
